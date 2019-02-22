@@ -12,6 +12,8 @@ class Dogs extends Model
 
     protected $dates = ['deleted_at'];
 
+    protected $fillable = ['name'];
+
     protected static function boot()
     {
         parent::boot();
@@ -28,4 +30,13 @@ class Dogs extends Model
     function scopeAgeGreaterThan($query, $age) {
         return $query->where('age', '>', $age);
     }
+
+    function getNameAttribute($value){
+        return strtoupper($value);
+    }
+
+    function getIdNameAgeAttribute(){
+        return $this->attributes['id'] . ':' . $this->attributes['name'] . 'Age: ' . $this->attributes['age'];
+    }
+
 }
